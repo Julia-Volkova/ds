@@ -1,0 +1,23 @@
+.layout {
+    padding: 30px 40px;
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.col {
+
+}
+
+.col12 {
+    width: 100%;
+}
+
+.col6 {
+    width: calc(100% / (12 / 6));
+}
