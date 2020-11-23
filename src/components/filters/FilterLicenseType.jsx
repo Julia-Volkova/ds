@@ -3,17 +3,20 @@ import fieldStyles from '../../styles/Field.module.css';
 import arrowIcon from "../../icons/arrow.svg";
 
 const FilterLicenseType = ({licenses, selectedLicense, onChangeLicenseType}) => {
+  const {row, col, col6} = gridStyles;
+  const {field, field__element, field__select, field__iconRight} = fieldStyles;
+
   return (
-    <div className={gridStyles.row}>
-      <div className={`${gridStyles.col} ${gridStyles.col6}`}>
-        <div className={fieldStyles.field}>
-          <div className={fieldStyles.field__element}>
-            <select className={fieldStyles.field__select} name="" id="" value={selectedLicense}
+    <div className={row}>
+      <div className={`${col} ${col6}`}>
+        <div className={field}>
+          <div className={field__element}>
+            <select className={field__select} name="" id="" value={selectedLicense}
                     onChange={(e) => onChangeLicenseType(e.target.value)}>
               <option value="0">Все виды лицензий</option>
               {licenses.map(({key, name}) => <option key={key} value={key}>{name}</option>)}
             </select>
-            <img src={arrowIcon} className={fieldStyles.field__iconRight}/>
+            <img src={arrowIcon} className={field__iconRight}/>
           </div>
         </div>
       </div>

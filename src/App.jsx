@@ -7,7 +7,7 @@ import FilterLicenseType from "./components/filters/FilterLicenseType";
 import FilterMessage from "./components/filters/FilterMessage";
 import Loader from "./components/Loader";
 
-import {EMPTY_SEARCH_RESULT, LANGUAGE_PARAMETER} from './constants'
+import {EMPTY_SEARCH_RESULT, ERROR_TEXT, LANGUAGE_PARAMETER} from './constants'
 import gridStyles from './styles/Grid.module.css'
 import sectionStyles from './styles/Section.module.css'
 import getDateMonthAgoISO from './utils/getDateMonthAgoISO';
@@ -18,6 +18,7 @@ const App = () => {
   const [licenseNameParameter, setLicenseNameParameter] = useState(0);
   const [licenses, setLicenses] = useState([]);
   const [repositories, setRepositories] = useState([]);
+
   const [isFetchRepositories, setIsFetchRepositories] = useState(false);
   const [isRepositoriesFiltered, setIsRepositoriesFiltered] = useState(false);
   const [isFetchRepositoriesError, setIsFetchRepositoriesError] = useState(false);
@@ -51,7 +52,7 @@ const App = () => {
       setIsFetchRepositories(false);
     } else {
       setIsFetchRepositoriesError(true);
-      setFetchRepositoriesErrorText(`Произошла ошибка. Мы уже работаем над ее устранением`)
+      setFetchRepositoriesErrorText(ERROR_TEXT);
     }
   };
 
@@ -81,10 +82,14 @@ const App = () => {
     setIsRepositoriesFiltered(value !== '0');
   };
 
+  const {layout} = gridStyles;
+  const {section} = sectionStyles;
+  const isSearchNoResult = repositories.length === 0 && isRepositoriesFiltered && !isFetchRepositories;
+
   return (
     <>
-      <div className={gridStyles.layout}>
-        <div className={sectionStyles.section}>
+      <div className={layout}>
+        <div className={section}>
           <form>
             <FilterSearchInput onChangeSearchValue={changeSearchValue}/>
 
@@ -93,10 +98,10 @@ const App = () => {
                                onChangeLicenseType={changeLicenseType}/>}
           </form>
         </div>
-        <div className={sectionStyles.section} style={{minHeight: '500px'}}>
+        <div className={section} style={{minHeight: '500px'}}>
           {repositories.length !== 0 && !isFetchRepositories && <RepositoryList repositories={repositories}/>}
           {isFetchRepositories && <Loader/>}
-          {repositories.length === 0 && isRepositoriesFiltered && <FilterMessage message={EMPTY_SEARCH_RESULT}/>}
+          {isSearchNoResult && <FilterMessage message={EMPTY_SEARCH_RESULT}/>}
           {isFetchRepositoriesError && <FilterMessage message={fetchRepositoriesErrorText}/>}
         </div>
       </div>

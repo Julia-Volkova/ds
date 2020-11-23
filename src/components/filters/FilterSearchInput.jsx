@@ -12,13 +12,16 @@ const FilterSearchInput = ({searchString, onChangeSearchValue}) => {
     }, 1500);
   };
 
+  const {row, col, col6} = gridStyles;
+  const {field, field__element, field__iconLeft, field__input} = fieldStyles;
+
   return (
-    <div className={gridStyles.row}>
-      <div className={`${gridStyles.col} ${gridStyles.col6}`}>
-        <div className={fieldStyles.field}>
-          <div className={fieldStyles.field__element}>
-            <img src={searchIcon} className={fieldStyles.field__iconLeft}/>
-            <input className={fieldStyles.field__input} placeholder="Введите название репозитория" type="text" value={searchString} onChange={changeSearchValue}/>
+    <div className={row}>
+      <div className={`${col} ${col6}`}>
+        <div className={field}>
+          <div className={field__element}>
+            <img src={searchIcon} className={field__iconLeft}/>
+            <input className={field__input} placeholder="Введите название репозитория" type="text" value={searchString} onChange={changeSearchValue}/>
           </div>
         </div>
       </div>
