@@ -16,6 +16,7 @@ const RepositoryListItem: React.FC<IRepositoryListItemProps> = ({
       style={{ display: "block", marginBottom: "10px" }}
       href={html_url}
       target="_blank"
+      rel="noreferrer"
     >
       {name} ({stargazers_count.toLocaleString("ru")})
     </a>

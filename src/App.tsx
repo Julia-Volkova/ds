@@ -16,6 +16,8 @@ import gridStyles from "./styles/Grid.module.css";
 import sectionStyles from "./styles/Section.module.css";
 import getDateMonthAgoISO from "./utils/getDateMonthAgoISO";
 
+let timer: any;
+
 const App = () => {
   const [searchStringParameter, setSearchStringParameter] = useState("");
   const [licenseNameParameter, setLicenseNameParameter] = useState("0");
@@ -45,21 +47,18 @@ const App = () => {
   };
 
   const fetchRepositoryList = async () => {
-    setIsFetchRepositories(false);
     setIsFetchRepositoriesError(false);
     setFetchRepositoriesErrorText("");
     const url = getValidUrl(searchStringParameter, licenseNameParameter);
-    setIsFetchRepositories(true);
-
     let response = await fetch(url);
     if (response.ok) {
       let repositoryList = await response.json();
       setRepositories(repositoryList.items);
-      setIsFetchRepositories(false);
     } else {
       setIsFetchRepositoriesError(true);
       setFetchRepositoriesErrorText(ERROR_TEXT);
     }
+    setIsFetchRepositories(false);
   };
 
   const fetchLicense = async () => {
@@ -75,7 +74,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    fetchRepositoryList();
+    setIsFetchRepositories(true);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fetchRepositoryList();
+    }, 1000);
   }, [searchStringParameter, licenseNameParameter]);
 
   const changeSearchValue = (value: string) => {

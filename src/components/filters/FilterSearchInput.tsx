@@ -13,12 +13,8 @@ const FilterSearchInput: React.FC<IFilterSearchInputProps> = ({
   searchString,
   onChangeSearchValue,
 }) => {
-  let timer: number;
-  const changeSearchValue = (searchValue: string) => {
-    clearTimeout(timer);
-    timer = window.setTimeout(() => {
-      onChangeSearchValue(searchValue);
-    }, 1500);
+  const changeSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChangeSearchValue(event.target.value);
   };
 
   const { row, col, col6 } = gridStyles;
@@ -29,13 +25,13 @@ const FilterSearchInput: React.FC<IFilterSearchInputProps> = ({
       <div className={`${col} ${col6}`}>
         <div className={field}>
           <div className={field__element}>
-            <img src={searchIcon} className={field__iconLeft} />
+            <img src={searchIcon} alt="иконка" className={field__iconLeft} />
             <input
               className={field__input}
               placeholder="Введите название репозитория"
               type="text"
               value={searchString}
-              onChange={(event) => changeSearchValue(event.target.value)}
+              onChange={changeSearchValue}
             />
           </div>
         </div>

@@ -48,7 +48,7 @@ const FilterLicenseType: React.FC<IFilterLicenseTypeProps> = ({
                   );
                 })}
             </select>
-            <img src={arrowIcon} className={field__iconRight} />
+            <img src={arrowIcon} alt="иконка" className={field__iconRight} />
           </div>
         </div>
       </div>
